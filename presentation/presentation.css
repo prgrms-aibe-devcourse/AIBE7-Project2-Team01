@@ -137,7 +137,9 @@ h3 {
 .split,
 .metric-row,
 .security-grid,
-.before-after {
+.before-after,
+.grid-2x2,
+.stack {
   display: grid;
   gap: 18px;
   margin-top: 64px;
@@ -149,8 +151,78 @@ h3 {
 }
 
 .split,
-.before-after {
+.before-after,
+.grid-2x2 {
   grid-template-columns: repeat(2, 1fr);
+}
+
+/* 여러 장·세로 2줄 배치는 상단 여백만 줄인다 (카드 스타일·색은 동일) */
+.grid-2x2 {
+  margin-top: 40px;
+}
+
+.stack {
+  margin-top: 26px;
+}
+
+.stack article {
+  padding: 18px 28px;
+}
+
+.grid-2x2 article {
+  min-height: 150px;
+}
+
+/* 쿼리 수 비교 막대 — 축·격자 없이 덱 톤(코랄, 라운드) 유지 */
+article strong small {
+  color: var(--muted);
+  font-size: 0.52em;
+  font-weight: 800;
+}
+
+.q-bars {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.q-bar {
+  display: grid;
+  grid-template-columns: 108px 1fr 40px;
+  align-items: center;
+  gap: 16px;
+}
+
+.q-bar b {
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.q-bar b:first-child {
+  color: var(--muted);
+  font-size: clamp(15px, 1.1vw, 20px);
+}
+
+.q-bar b:last-child {
+  color: var(--brand);
+  font-size: clamp(18px, 1.5vw, 26px);
+  text-align: right;
+}
+
+.q-bar i {
+  position: relative;
+  height: 14px;
+  border-radius: 999px;
+  background: #f5dfda;
+}
+
+.q-bar i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: var(--w);
+  border-radius: inherit;
+  background: var(--brand);
 }
 
 article,
@@ -358,6 +430,8 @@ article p {
   .metric-row,
   .security-grid,
   .before-after,
+  .grid-2x2,
+  .stack,
   .pipeline {
     grid-template-columns: 1fr;
     margin-top: 28px;
