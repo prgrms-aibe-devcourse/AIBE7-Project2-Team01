@@ -9,6 +9,11 @@ import { WS_BASE_URL } from "../../config/runtime.js";
 export function connectChatRoom(chatRoomId, { onMessage, onConnect, onError } = {}) {
   const client = new StompJs.Client({
     webSocketFactory: () => new SockJS(`${WS_BASE_URL}/ws`),
+    // 유휴 커넥션이 프록시(Render 등)에 의해 조용히 끊기지 않도록 STOMP 하트비트를 켠다.
+    // 서버(WebSocketConfig)도 setHeartbeatValue로 맞춰줘야 실제로 동작한다.
+    heartbeatIncoming: 10000,
+    heartbeatOutgoing: 10000,
+    reconnectDelay: 3000,
     onConnect: () => {
       client.subscribe(`/topic/chat-rooms/${chatRoomId}`, (message) => {
         onMessage?.(JSON.parse(message.body));

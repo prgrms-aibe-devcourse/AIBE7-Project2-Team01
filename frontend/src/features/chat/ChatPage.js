@@ -161,7 +161,31 @@ async function openRoom(panelEl, room) {
 
   loadHistory(streamEl, roomContext, currentUserId, history);
 
+  // 소켓이 끊겼다 재연결되면 그 사이 놓친 브로드캐스트(특히 거래 요청 카드)를
+  // 서버 상태 기준으로 다시 맞춘다. 심플 브로커는 미접속 클라 메시지를 큐잉하지 않는다.
+  let socketConnectedOnce = false;
+  async function catchUpAfterReconnect() {
+    try {
+      const [freshTrade, freshHistory] = await Promise.all([
+        loadActiveTrade(room.chatRoomId),
+        fetchChatMessages(room.chatRoomId),
+      ]);
+      const flow = resolveTradeFlow(freshHistory, freshTrade);
+      roomContext.hasActiveTrade = flow.hasActiveTrade;
+      roomContext.openAmountRequestMessageId = flow.openAmountRequestMessageId;
+      loadHistory(streamEl, roomContext, currentUserId, freshHistory);
+    } catch {
+      // 재연결 직후 일시적 실패는 다음 하트비트/재연결에서 회복
+    }
+  }
+
   activeClient = connectChatRoom(room.chatRoomId, {
+    onConnect: () => {
+      if (socketConnectedOnce) {
+        catchUpAfterReconnect();
+      }
+      socketConnectedOnce = true;
+    },
     onMessage: (message) => {
       if (isTradeAmountRequest(message)) {
         roomContext.hasActiveTrade = false;
