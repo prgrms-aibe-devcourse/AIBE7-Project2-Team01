@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Knotty 프로젝트 발표</title>
+  <meta name="description" content="AI 기반 양방향 재능 거래 플랫폼 Knotty 프로젝트 발표자료" />
+  <link rel="icon" href="./assets/logo/favicon.png" />
+  <link rel="stylesheet" href="./presentation.css" />
+</head>
+<body>
+  <main class="deck" aria-live="polite">
+    <section class="slide cover active" data-slide>
+      <img class="brand-mark" src="./assets/logo/knotty-logo.png" alt="Knotty" />
+      <p class="eyebrow">AI 기반 양방향 재능 거래 플랫폼</p>
+      <h1>매듭 짓다,<br />더 가까워지다</h1>
+      <p class="subtitle">검색에서 거래 완료까지 이어지는 MVP 구현</p>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Problem</p>
+      <h2>재능 거래는 검색 이후가 더 어렵다</h2>
+      <div class="three-cards">
+        <article><strong>탐색</strong><span>표현이 다르면 찾기 어려움</span></article>
+        <article><strong>협의</strong><span>채팅과 거래 흐름 분리</span></article>
+        <article><strong>정합성</strong><span>중복 결제와 상태 충돌 위험</span></article>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Solution</p>
+      <h2>검색, 채팅, 결제를 하나의 흐름으로 연결</h2>
+      <div class="flow">
+        <span>게시글</span><i></i><span>AI 매칭</span><i></i><span>채팅</span><i></i><span>거래 요청</span><i></i><span>지갑 결제</span>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">User Flow</p>
+      <h2>두 종류의 글, 서로 다른 거래 규칙</h2>
+      <div class="split">
+        <article>
+          <h3>재능글</h3>
+          <p>판매자 금액 설정 → 구매자 결제 → 글 유지</p>
+        </article>
+        <article>
+          <h3>요청글</h3>
+          <p>전문가 금액 제안 → 작성자 결제 → 글 마감</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Architecture</p>
+      <h2>프론트와 백엔드, AI와 데이터 저장소의 분리</h2>
+      <img class="diagram-img" src="./assets/diagrams/system-architecture.svg" alt="Knotty 시스템 아키텍처 도식" />
+    </section>
+
+    <section class="slide erd-slide" data-slide>
+      <p class="eyebrow">ERD</p>
+      <h2>핵심 데이터는 사용자, 게시글, 채팅, 거래로 연결</h2>
+      <img class="diagram-img erd-img" src="./assets/diagrams/erd-overview.svg" alt="Knotty ERD 핵심 관계 도식" />
+      <p class="note">Review/Reputation은 MVP 제외, VectorStore는 source of truth가 아님</p>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Backend</p>
+      <h2>도메인 규칙을 상태 전이로 고정</h2>
+      <div class="state-flow">
+        <span>OPEN</span><i></i><span>IN_PROGRESS</span><i></i><span>CLOSED</span>
+      </div>
+      <p class="note">요청글은 1회성, 재능글은 ACTIVE 유지</p>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">AI Matching</p>
+      <h2>의미 검색은 Vector, 정확한 조건은 SQL</h2>
+      <div class="pipeline">
+        <span>Query 분석</span><span>Vector Search</span><span>SQL 검증</span><span>MatchScore</span><span>추천 이유</span>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Security</p>
+      <h2>Cookie 인증의 장점과 위험을 함께 다룸</h2>
+      <div class="security-grid">
+        <article>HttpOnly Cookie</article>
+        <article>CSRF Token</article>
+        <article>SameSite / Secure</article>
+        <article>CORS / CSP</article>
+        <article>DOMPurify</article>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Transaction</p>
+      <h2>금전 거래는 트랜잭션만으로 부족했다</h2>
+      <div class="before-after">
+        <article>
+          <strong>Before</strong>
+          <p>일반 조회 → 상태 확인 → 동시 요청 위험</p>
+        </article>
+        <article>
+          <strong>After</strong>
+          <p>행 잠금 → 상태 확인 → 결제/정산</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Performance</p>
+      <h2>목록 조회는 데이터 증가를 먼저 대비</h2>
+      <div class="metric-row">
+        <article><strong>게시글</strong><span>Page + EntityGraph</span></article>
+        <article><strong>채팅방</strong><span>N+1 → 고정 쿼리</span></article>
+        <article><strong>AI</strong><span>TOP K 이후 SQL 검증</span></article>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">CI / CD</p>
+      <h2>pgvector까지 포함한 자동 검증</h2>
+      <div class="flow ci-flow">
+        <span>Push / PR</span><i></i><span>GitHub Actions</span><i></i><span>Backend Test</span><i></i><span>Frontend Test</span><i></i><span>Render</span>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Troubleshooting</p>
+      <h2>범위를 줄여 완성도를 높인 결정</h2>
+      <div class="decision">
+        <span>Review/Reputation</span>
+        <strong>MVP 제외</strong>
+        <span>거래 · AI · 보안 · 배포 집중</span>
+      </div>
+    </section>
+
+    <section class="slide" data-slide>
+      <p class="eyebrow">Demo</p>
+      <h2>시연은 핵심 사용자 여정만 보여준다</h2>
+      <div class="flow demo-flow">
+        <span>AI 검색</span><i></i><span>상세</span><i></i><span>채팅</span><i></i><span>거래 요청</span><i></i><span>결제 완료</span>
+      </div>
+    </section>
+
+    <section class="slide closing" data-slide>
+      <img class="brand-mark small" src="./assets/logo/knotty-logo.png" alt="Knotty" />
+      <h2>Q&amp;A</h2>
+      <p>구현 근거는 notes 문서에 정리</p>
+    </section>
+  </main>
+
+  <footer class="deck-ui">
+    <button type="button" data-prev aria-label="이전 슬라이드">←</button>
+    <div class="progress" aria-hidden="true"><span data-progress></span></div>
+    <span data-counter>1 / 15</span>
+    <button type="button" data-next aria-label="다음 슬라이드">→</button>
+  </footer>
+
+  <script src="./presentation.js"></script>
+</body>
+</html>

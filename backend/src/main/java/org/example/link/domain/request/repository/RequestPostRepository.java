@@ -43,6 +43,16 @@ public interface RequestPostRepository extends JpaRepository<RequestPostEntity, 
             Pageable pageable
     );
 
+    @EntityGraph(attributePaths = {"user", "category"})
+    @Query("""
+        SELECT r
+        FROM RequestPostEntity r
+        WHERE r.id = :requestPostId
+        """)
+    Optional<RequestPostEntity> findDetailById(
+            @Param("requestPostId") UUID requestPostId
+    );
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select r from RequestPostEntity r where r.id = :requestPostId")
     Optional<RequestPostEntity> findByIdForUpdate(@Param("requestPostId") UUID requestPostId);

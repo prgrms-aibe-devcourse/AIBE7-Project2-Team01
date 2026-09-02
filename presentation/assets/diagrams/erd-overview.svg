@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="560" viewBox="0 0 1400 560" role="img" aria-labelledby="title desc">
+  <title id="title">Knotty ERD 핵심 관계</title>
+  <desc id="desc">사용자, 게시글, 채팅, 거래, VectorStore 핵심 데이터 관계</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-15%" width="120%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#69372d" flood-opacity="0.11"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="560" fill="#fff8f6"/>
+  <path d="M240 276H1160" stroke="#ff5a4f" stroke-width="5" stroke-linecap="round" opacity="0.28"/>
+  <path d="M455 276h50" stroke="#ff5a4f" stroke-width="5" stroke-linecap="round"/>
+  <path d="M780 276h50" stroke="#ff5a4f" stroke-width="5" stroke-linecap="round"/>
+  <path d="M1088 276h52" stroke="#ff5a4f" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 10"/>
+  <g filter="url(#shadow)">
+    <rect x="60" y="96" width="360" height="330" rx="14" fill="#ffffff" stroke="#f0dfda"/>
+    <rect x="520" y="96" width="360" height="330" rx="14" fill="#ffffff" stroke="#f0dfda"/>
+    <rect x="980" y="96" width="360" height="330" rx="14" fill="#ffffff" stroke="#f0dfda"/>
+    <rect x="1040" y="454" width="260" height="72" rx="12" fill="#fff0ed" stroke="#ffd1c9"/>
+  </g>
+  <text x="240" y="148" text-anchor="middle" fill="#ff5a4f" font-family="Inter, Pretendard, sans-serif" font-size="30" font-weight="950">USERS</text>
+  <rect x="105" y="184" width="270" height="58" rx="8" fill="#fffdfb" stroke="#f0dfda"/>
+  <rect x="105" y="256" width="270" height="58" rx="8" fill="#fffdfb" stroke="#f0dfda"/>
+  <rect x="105" y="328" width="270" height="58" rx="8" fill="#fffdfb" stroke="#f0dfda"/>
+  <text x="240" y="221" text-anchor="middle" fill="#344054" font-family="Inter, Pretendard, sans-serif" font-size="22" font-weight="900">WALLETS</text>
+  <text x="240" y="293" text-anchor="middle" fill="#344054" font-family="Inter, Pretendard, sans-serif" font-size="22" font-weight="900">PORTFOLIOS</text>
+  <text x="240" y="365" text-anchor="middle" fill="#344054" font-family="Inter, Pretendard, sans-serif" font-size="22" font-weight="900">작성자 / 참여자</text>
+  <text x="700" y="148" text-anchor="middle" fill="#ff5a4f" font-family="Inter, Pretendard, sans-serif" font-size="30" font-weight="950">POSTS</text>
+  <rect x="565" y="184" width="270" height="58" rx="8" fill="#fffdfb" stroke="#f0dfda"/>
+  <rect x="565" y="256" width="270" height="58" rx="8" fill="#fffdfb" stroke="#f0dfda"/>
+  <rect x="565" y="328" width="270" height="58" rx="8" fill="#fffdfb" stroke="#f0dfda"/>
+  <text x="700" y="221" text-anchor="middle" fill="#344054" font-family="Inter, Pretendard, sans-serif" font-size="22" font-weight="900">TALENT_POSTS</text>
+  <text x="700" y="293" text-anchor="middle" fill="#344054" font-family="Inter, Pretendard, sans-serif" font-size="22" font-weight="900">REQUEST_POSTS</text>
+  <text x="700" y="365" text-anchor="middle" fill="#344054" font-family="Inter, Pretendard, sans-serif" font-size="22" font-weight="900">CATEGORIES / FILES</text>
+  <text x="1160" y="148" text-anchor="middle" fill="#ff5a4f" font-family="Inter, Pretendard, sans-serif" font-size="30" font-weight="950">CHAT / TRADE</text>
+  <rect x="1025" y="184" width="270" height="58" rx="8" fill="#fffdfb" stroke="#f0dfda"/>
+  <rect x="1025" y="256" width="270" height="58" rx="8" fill="#fffdfb" stroke="#f0dfda"/>
+  <rect x="1025" y="328" width="270" height="58" rx="8" fill="#fffdfb" stroke="#f0dfda"/>
+  <text x="1160" y="221" text-anchor="middle" fill="#344054" font-family="Inter, Pretendard, sans-serif" font-size="22" font-weight="900">CHAT_ROOMS</text>
+  <text x="1160" y="293" text-anchor="middle" fill="#344054" font-family="Inter, Pretendard, sans-serif" font-size="22" font-weight="900">TRADES</text>
+  <text x="1160" y="365" text-anchor="middle" fill="#344054" font-family="Inter, Pretendard, sans-serif" font-size="22" font-weight="900">WALLET_TRANSACTIONS</text>
+  <text x="1170" y="499" text-anchor="middle" fill="#e6453b" font-family="Inter, Pretendard, sans-serif" font-size="23" font-weight="950">VECTOR_STORE</text>
+  <text x="1170" y="530" text-anchor="middle" fill="#697386" font-family="Inter, Pretendard, sans-serif" font-size="16" font-weight="800">targetId로 원본 재조회</text>
+  <text x="470" y="258" text-anchor="middle" fill="#e6453b" font-family="Inter, Pretendard, sans-serif" font-size="18" font-weight="900">writes</text>
+  <text x="925" y="258" text-anchor="middle" fill="#e6453b" font-family="Inter, Pretendard, sans-serif" font-size="18" font-weight="900">topic</text>
+  <text x="1048" y="446" text-anchor="middle" fill="#e6453b" font-family="Inter, Pretendard, sans-serif" font-size="18" font-weight="900">AI search</text>
+</svg>

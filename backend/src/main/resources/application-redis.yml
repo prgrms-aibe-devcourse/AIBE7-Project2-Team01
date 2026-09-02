@@ -8,3 +8,15 @@ spring:
       password: ${REDIS_PASSWORD}
       ssl:
         enabled: true
+
+---
+# Production Redis repository options
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  data:
+    redis:
+      repositories:
+        enabled: false

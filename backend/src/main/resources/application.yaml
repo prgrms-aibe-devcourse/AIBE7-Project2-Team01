@@ -18,3 +18,29 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+
+---
+# Production environment (Render)
+# 환경변수는 Render 대시보드 "Environment" 탭에서 직접 설정합니다.
+# .env 파일을 import하지 않고 OS 환경변수만 사용합니다.
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  main:
+    lazy-initialization: true
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: ${PORT:8080}
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false

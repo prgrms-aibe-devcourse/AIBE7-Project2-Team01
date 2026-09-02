@@ -1,0 +1,74 @@
+services:
+  # ─── Backend (Spring Boot) ───────────────────────────────────────────────────
+  - type: web
+    name: knotty-backend
+    runtime: docker
+    region: singapore
+    plan: free
+    autoDeployTrigger: commit
+    dockerfilePath: ./backend/Dockerfile
+    healthCheckPath: /health
+    envVars:
+      # ── PostgreSQL ────────────────────────────────────────────────────────────
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_NAME
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      # ── JWT ───────────────────────────────────────────────────────────────────
+      - key: JWT_SECRET
+        generateValue: true
+      # ── Cookie / CORS ─────────────────────────────────────────────────────────
+      - key: AUTH_COOKIE_SECURE
+        value: "true"
+      - key: AUTH_COOKIE_SAME_SITE
+        value: "None"
+      - key: FRONTEND_ORIGIN
+        sync: false
+      # ── Redis ─────────────────────────────────────────────────────────────────
+      - key: REDIS_HOST
+        sync: false
+      - key: REDIS_PORT
+        sync: false
+      - key: REDIS_USERNAME
+        sync: false
+      - key: REDIS_PASSWORD
+        sync: false
+      # ── Google OAuth2 ─────────────────────────────────────────────────────────
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      # ── Supabase ──────────────────────────────────────────────────────────────
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: SUPABASE_BUCKET
+        sync: false
+      # ── Gemini AI ─────────────────────────────────────────────────────────────
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: AI_PGVECTOR_INITIALIZE_SCHEMA
+        value: "false"
+
+  # ─── Frontend (Node.js / Express) ───────────────────────────────────────────
+  - type: web
+    name: knotty-frontend
+    runtime: node
+    region: singapore
+    plan: free
+    rootDir: frontend
+    autoDeployTrigger: commit
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_TARGET
+        sync: false

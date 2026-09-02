@@ -131,7 +131,7 @@ public class RequestPostService {
     }
 
     private RequestPostEntity getRequestPost(UUID requestPostId) {
-        return requestPostRepository.findById(requestPostId)
+        return requestPostRepository.findDetailById(requestPostId)
                 .orElseThrow(() -> new CustomException(ErrorCode.POST_NOT_FOUND));
     }
 

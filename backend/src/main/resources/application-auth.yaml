@@ -31,3 +31,30 @@ spring:
             scope:
               - profile
               - email
+
+---
+# Production authentication providers
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope:
+              - profile
+              - email
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never

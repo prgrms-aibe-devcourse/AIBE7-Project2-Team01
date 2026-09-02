@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LINK 프로젝트 발표</title>
+<style>
+:root{
+  --bg:#0b1020; --panel:#121a2e; --panel2:#182238; --text:#f7f8fb; --muted:#aab3c5;
+  --accent:#8b5cf6; --accent2:#22c55e; --danger:#f97316; --line:#2a3550; --soft:#202b45;
+}
+*{box-sizing:border-box} body{margin:0;background:#050815;color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR",sans-serif;overflow:hidden}
+.deck{width:100vw;height:100vh;position:relative;background:radial-gradient(circle at 85% 10%,rgba(139,92,246,.15),transparent 30%),linear-gradient(180deg,#0a0f1d,#080c17)}
+.slide{display:none;width:100%;height:100%;padding:64px 80px 58px;position:absolute;inset:0}.slide.active{display:flex;flex-direction:column}
+.kicker{font-size:14px;letter-spacing:.14em;color:#bda9ff;font-weight:800;text-transform:uppercase}.title{font-size:46px;line-height:1.13;margin:12px 0 12px;font-weight:850}.subtitle{font-size:22px;color:var(--muted);max-width:1000px;line-height:1.5}.headline{font-size:32px;line-height:1.35;font-weight:800;margin:16px 0 28px;max-width:1100px}.accent{color:#c8b7ff}.green{color:#8de5ae}.orange{color:#ffb37c}.muted{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px;flex:1;min-height:0}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:1;min-height:0}.card{background:linear-gradient(180deg,rgba(24,34,56,.95),rgba(16,24,43,.95));border:1px solid var(--line);border-radius:20px;padding:24px}.card h3{margin:0 0 12px;font-size:22px}.card p{color:var(--muted);line-height:1.55;margin:0}.big{font-size:50px;font-weight:900}.tag{display:inline-block;border:1px solid #4c5878;border-radius:999px;padding:7px 12px;margin:5px 6px 0 0;color:#d9def0;font-size:14px;background:#11192c}
+.flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.node{background:var(--panel2);border:1px solid #35405d;border-radius:14px;padding:15px 18px;font-weight:700;min-width:120px;text-align:center}.arrow{font-size:24px;color:#7d88a7}.diagram{flex:1;display:flex;align-items:center;justify-content:center}.stack{display:flex;flex-direction:column;gap:14px;align-items:center}.layer{width:min(760px,85vw);padding:16px 22px;border-radius:16px;background:#131d32;border:1px solid #33405e;text-align:center;font-weight:800}.layer small{display:block;margin-top:5px;color:var(--muted);font-weight:500}
+.compare{display:grid;grid-template-columns:1fr 90px 1fr;gap:18px;align-items:stretch;flex:1}.before,.after{border-radius:22px;padding:28px;border:1px solid var(--line);background:#11192b}.before{border-color:#5d3b36}.after{border-color:#355b45}.label{font-size:13px;font-weight:900;letter-spacing:.14em}.before .label{color:#ffad93}.after .label{color:#8de5ae}.centerArrow{display:flex;align-items:center;justify-content:center;font-size:44px;color:#7f89a5}
+.metric{font-size:64px;font-weight:950;line-height:1}.metricCaption{font-size:17px;color:var(--muted);margin-top:8px}.mini{font-size:15px;color:var(--muted);line-height:1.45}.callout{padding:16px 20px;border-left:4px solid var(--accent);background:#141d31;border-radius:10px;color:#e7e9f3}
+.placeholder{border:2px dashed #4b5877;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#7f8aa6;background:rgba(10,15,29,.35);min-height:220px;text-align:center;padding:24px}.placeholder strong{color:#aab4cb}.topline{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}.logoBox{width:150px;height:54px;border:1px dashed #4b5877;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#7f8aa6;font-size:13px}
+.team{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:28px}.member{background:#131d31;border:1px solid var(--line);border-radius:20px;padding:24px}.member b{font-size:24px}.member .role{color:#c8b7ff;font-size:15px;margin-top:8px}.member ul{margin:14px 0 0;padding-left:18px;color:#b5bdd0;line-height:1.7}
+.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:stretch}.step{position:relative;background:#121b2e;border:1px solid var(--line);border-radius:16px;padding:20px 14px;text-align:center}.step::after{content:'→';position:absolute;right:-16px;top:42%;color:#64708f;font-size:22px}.step:last-child::after{display:none}.step b{display:block;font-size:18px}.step span{display:block;color:var(--muted);font-size:13px;margin-top:6px}
+.footer{position:absolute;bottom:18px;left:80px;right:80px;display:flex;align-items:center;gap:16px;color:#79849e;font-size:12px}.progress{height:4px;background:#202942;flex:1;border-radius:99px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,#8b5cf6,#22c55e);width:0}.slideNum{min-width:52px;text-align:right}.note{font-size:13px;color:#7f8aa6}.cols{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;flex:1;min-height:0}.bullets{display:flex;flex-direction:column;gap:14px}.bullet{display:flex;gap:12px;align-items:flex-start;background:#11192b;border:1px solid var(--line);border-radius:14px;padding:15px 17px}.dot{width:10px;height:10px;border-radius:50%;background:#8b5cf6;margin-top:7px;flex:none}.smallTitle{font-size:18px;font-weight:850}.smallText{font-size:14px;color:var(--muted);line-height:1.45;margin-top:4px}.qna{font-size:66px;font-weight:950;letter-spacing:-.04em}.center{align-items:center;justify-content:center;text-align:center}.splitNote{display:flex;justify-content:space-between;gap:18px;margin-top:16px}.badge{border-radius:10px;padding:8px 10px;background:#151f34;color:#c7cfdf;font-size:13px;border:1px solid #2e3a58}
+@media (max-width:1000px){.slide{padding:42px 42px 50px}.title{font-size:38px}.headline{font-size:27px}.grid3{gap:12px}.card{padding:18px}.footer{left:42px;right:42px}.team{gap:12px}.member{padding:18px}}
+@media print{body{overflow:visible;background:white}.deck{height:auto;background:white}.slide{display:flex!important;position:relative;width:297mm;height:167mm;page-break-after:always;color:#111;background:white}.card,.before,.after,.member,.bullet,.layer,.step{background:white;color:#111;border-color:#bbb}.muted,.subtitle,.card p,.mini,.smallText,.metricCaption,.member ul,.layer small,.step span{color:#444}.footer{display:none}}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<section class="slide active">
+  <div class="topline"><div><div class="kicker">Team Project Presentation</div><div class="title">LINK</div></div><div class="logoBox">로고 삽입 영역</div></div>
+  <div class="headline">AI로 <span class="accent">재능을 연결</span>하고, 거래까지 이어지는<br/>양방향 재능 거래 플랫폼</div>
+  <div class="flow" style="margin-top:8px">
+    <span class="tag">Spring Boot</span><span class="tag">PostgreSQL + pgvector</span><span class="tag">WebSocket</span><span class="tag">JWT / OAuth2</span><span class="tag">Gemini</span><span class="tag">GitHub Actions</span>
+  </div>
+  <div class="team">
+    <div class="member"><b>박진우</b><div class="role">Auth · Portfolio · AI Matching</div><ul><li>로그인 / 회원가입</li><li>포트폴리오</li><li>AI 매칭</li></ul></div>
+    <div class="member"><b>백승호</b><div class="role">Talent · Request · AI Embedding</div><ul><li>재능글 / 요청글</li><li>AI 임베딩</li><li>게시글 도메인</li></ul></div>
+    <div class="member"><b>남윤아</b><div class="role">Chat · Trade</div><ul><li>실시간 채팅</li><li>거래</li><li>지갑 흐름</li></ul></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">01 · Problem</div><div class="title">재능 거래에서 가장 어려운 건 “찾는 것”과 “믿고 거래하는 것”</div>
+  <div class="grid3" style="margin-top:22px">
+    <div class="card"><div class="big">01</div><h3>검색의 한계</h3><p>키워드가 다르면 의미가 비슷해도 원하는 재능을 찾기 어렵습니다.</p></div>
+    <div class="card"><div class="big">02</div><h3>거래 정합성</h3><p>동시에 거래 요청이 발생하면 잔액·상태가 어긋날 수 있습니다.</p></div>
+    <div class="card"><div class="big">03</div><h3>웹 보안</h3><p>토큰 저장 방식 하나가 XSS와 CSRF의 트레이드오프로 이어집니다.</p></div>
+  </div>
+  <div class="callout" style="margin-top:22px">그래서 기능 수를 늘리기보다, <b>검색 품질 · 거래 안정성 · 인증 보안</b>을 핵심 문제로 잡았습니다.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">02 · Service Flow</div><div class="title">사용자는 글을 찾고, 연결하고, 거래를 완료합니다</div>
+  <div class="diagram">
+    <div class="timeline" style="width:100%">
+      <div class="step"><b>가입 / 로그인</b><span>JWT · OAuth2</span></div>
+      <div class="step"><b>글 작성</b><span>재능 / 요청 / 포트폴리오</span></div>
+      <div class="step"><b>검색 / AI 매칭</b><span>Vector + SQL 검증</span></div>
+      <div class="step"><b>채팅</b><span>WebSocket</span></div>
+      <div class="step"><b>거래 / 결제</b><span>Trade + Wallet</span></div>
+    </div>
+  </div>
+  <div class="splitNote"><span class="badge">핵심 데모 시나리오: 로그인 → AI 매칭 → 상세 → 채팅 → 거래</span><span class="badge">실제 데모 화면 캡처는 추후 삽입</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">03 · Architecture</div><div class="title">역할을 분리하고, 외부 의존성은 필요한 곳에만 연결했습니다</div>
+  <div class="diagram">
+    <div class="stack">
+      <div class="layer">Browser <small>Vanilla JS SPA</small></div>
+      <div class="arrow">↓</div>
+      <div class="layer">Frontend Express Server <small>정적 파일 · /api Proxy · CSP · Runtime Config</small></div>
+      <div class="arrow">↓</div>
+      <div class="layer">Spring Boot Backend <small>Auth · Talent/Request · Portfolio · Chat · Trade/Wallet · AI</small></div>
+      <div class="arrow">↓</div>
+      <div class="flow" style="justify-content:center">
+        <div class="node">PostgreSQL<br/><span class="mini">pgvector</span></div>
+        <div class="node">Redis</div>
+        <div class="node">Supabase<br/><span class="mini">Storage</span></div>
+        <div class="node">Gemini API</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">04 · Core Backend</div><div class="title">핵심은 “기술을 쓴 것”보다 책임을 어디에 둘지 정한 것입니다</div>
+  <div class="grid3">
+    <div class="card"><h3>AI Matching</h3><p>의미 검색은 Vector, 실제 조건 검증은 SQL, 추천 이유는 LLM으로 분리했습니다.</p><div class="tag">PR #72</div></div>
+    <div class="card"><h3>Trade Integrity</h3><p>Transaction만 믿지 않고 Lock + 상태 전이 + DB 제약을 함께 적용했습니다.</p><div class="tag">commit c2e3645</div></div>
+    <div class="card"><h3>Security</h3><p>HttpOnly Cookie의 장점과 CSRF 위험을 함께 고려해 다층 방어 구조로 전환했습니다.</p><div class="tag">PR #64 · #65</div></div>
+  </div>
+  <div class="callout" style="margin-top:22px">세 가지 모두 공통적으로 <b>한 기술에 모든 책임을 몰아주지 않는 구조</b>를 선택했습니다.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">05 · AI Matching</div><div class="title">Vector Search만으로 끝내지 않고, SQL로 “실제 거래 가능한 후보”를 다시 검증</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="stack" style="align-items:stretch">
+        <div class="node">사용자 조건</div><div class="arrow">↓</div>
+        <div class="node">pgvector 유사도 검색<br/><span class="mini">후보 Top-K</span></div><div class="arrow">↓</div>
+        <div class="node">SQL 원본 검증<br/><span class="mini">상태 · 가격 · 카테고리 · 기간</span></div><div class="arrow">↓</div>
+        <div class="node">서버 MatchScore Ranking</div><div class="arrow">↓</div>
+        <div class="node">Gemini 추천 이유 생성</div>
+      </div>
+    </div>
+    <div class="card"><h3>왜 이렇게 나눴나?</h3>
+      <div class="bullets"><div class="bullet"><div class="dot"></div><div><div class="smallTitle">Vector</div><div class="smallText">표현이 달라도 의미가 비슷한 글을 찾는 역할</div></div></div>
+      <div class="bullet"><div class="dot"></div><div><div class="smallTitle">SQL</div><div class="smallText">종료·삭제·조건 불일치 후보를 제거하는 역할</div></div></div>
+      <div class="bullet"><div class="dot"></div><div><div class="smallTitle">LLM</div><div class="smallText">순위 결정이 아니라 사용자에게 이유를 설명하는 역할</div></div></div></div>
+      <div class="callout" style="margin-top:18px">정확도 수치: <b>측정 필요</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">06 · Security</div><div class="title">보안은 하나를 막으면 끝이 아니라, 새로 생기는 위험까지 같이 봤습니다</div>
+  <div class="compare">
+    <div class="before"><div class="label">BEFORE</div><div class="headline" style="font-size:28px">JS에서 토큰 직접 관리</div><div class="bullets"><div class="bullet"><div class="dot"></div><div><div class="smallTitle">XSS 발생 시</div><div class="smallText">토큰 탈취 가능성</div></div></div><div class="bullet"><div class="dot"></div><div><div class="smallTitle">렌더링 위험</div><div class="smallText">사용자·AI·Markdown HTML</div></div></div></div></div>
+    <div class="centerArrow">→</div>
+    <div class="after"><div class="label">AFTER</div><div class="headline" style="font-size:28px">HttpOnly Cookie + 다층 방어</div><div class="bullets"><div class="bullet"><div class="dot"></div><div><div class="smallTitle">CSRF Token</div><div class="smallText">XSRF-TOKEN ↔ X-XSRF-TOKEN</div></div></div><div class="bullet"><div class="dot"></div><div><div class="smallTitle">SameSite · Secure · CORS · CSP</div><div class="smallText">Cookie 인증의 부작용을 보완</div></div></div></div></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">07 · Transaction</div><div class="title">@Transactional만으로는 동시에 들어오는 거래 요청을 막을 수 없었습니다</div>
+  <div class="grid2">
+    <div class="card"><h3>문제</h3><div class="flow" style="justify-content:center;margin-top:30px"><div class="node">요청 A</div><div class="node">같은 Wallet</div><div class="node">요청 B</div></div><div class="callout" style="margin-top:28px">동일 잔액과 동일 거래 상태를 동시에 읽으면 <b>중복 결제 · 잔액 경합 · 요청글 중복 선점</b> 가능</div></div>
+    <div class="card"><h3>해결</h3><div class="stack" style="align-items:stretch;margin-top:14px"><div class="node">PESSIMISTIC_WRITE</div><div class="arrow">↓</div><div class="node">Wallet / Trade / RequestPost 잠금</div><div class="arrow">↓</div><div class="node">상태 전이 검증</div><div class="arrow">↓</div><div class="node">DB Constraint로 마지막 방어</div></div></div>
+  </div>
+  <div class="splitNote"><span class="badge">요청글: OPEN → IN_PROGRESS → CLOSED</span><span class="badge">재능글: 상시 판매 가능 도메인 규칙 반영</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">08 · Performance</div><div class="title">코드리뷰에서 한 개의 N+1을 발견했고, 추적하면서 두 개를 더 찾았습니다</div>
+  <div class="grid2">
+    <div class="card center"><div class="metric">~92</div><div class="metricCaption">채팅방 30개 기준 Before 쿼리 수</div><div class="mini" style="margin-top:14px">방 개수에 따라 1 + 3N 수준으로 증가</div></div>
+    <div class="card center"><div class="metric green">4</div><div class="metricCaption">After 고정 쿼리 수</div><div class="mini" style="margin-top:14px">findByIdIn · fetch join으로 묶어서 조회</div></div>
+  </div>
+  <div class="callout" style="margin-top:22px">게시글 목록도 전체 조회 → Pageable + EntityGraph 기반으로 전환했습니다. <b>응답시간 그래프는 측정 후 삽입 예정.</b></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">09 · CI/CD</div><div class="title">“내 컴퓨터에서는 됨”을 줄이기 위해 PR마다 동일한 테스트 환경을 실행합니다</div>
+  <div class="diagram"><div class="timeline" style="width:100%">
+    <div class="step"><b>Push / PR</b><span>develop · main · feature/**</span></div>
+    <div class="step"><b>Backend CI</b><span>PostgreSQL + pgvector</span></div>
+    <div class="step"><b>Frontend CI</b><span>Node 24 · npm test</span></div>
+    <div class="step"><b>Merge</b><span>검증된 변경</span></div>
+    <div class="step"><b>Render</b><span>Auto Deploy</span></div>
+  </div></div>
+  <div class="callout">CI는 GitHub Actions, CD는 Render Auto Deploy로 역할을 분리했습니다. <b>현재 checkout 기준 render.yaml/Dockerfile은 확인 필요.</b></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">10 · Troubleshooting</div><div class="title">개발 과정의 핵심 변화는 “문제 발견 → 책임 재설계”였습니다</div>
+  <div class="grid3">
+    <div class="card"><div class="label orange">SECURITY</div><h3>localStorage → Cookie</h3><p>XSS 위험을 줄였지만 CSRF 위험이 생겨 Token · SameSite · CORS · CSP까지 함께 보완.</p><div class="tag">PR #64 · #65</div></div>
+    <div class="card"><div class="label accent">AI</div><h3>Keyword → Hybrid</h3><p>SQL의 의미 검색 한계와 Vector-only의 검증 한계를 역할 분리로 해결.</p><div class="tag">PR #68 · #72</div></div>
+    <div class="card"><div class="label green">TRADE</div><h3>Transaction → Lock</h3><p>동시성 문제를 비관적 락 · 상태 전이 · DB 제약으로 다층 방어.</p><div class="tag">commit c2e3645</div></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">11 · Before / After</div><div class="title">결과는 숫자를 꾸미지 않고, 확인된 변화만 보여줍니다</div>
+  <div class="grid3">
+    <div class="card"><div class="label">AI MATCHING</div><h3>키워드 검색 → Hybrid Matching</h3><p>의미 기반 후보 탐색 + SQL 검증 + 서버 Ranking.</p><div class="tag">정확도: 측정 필요</div></div>
+    <div class="card"><div class="label">CHAT QUERY</div><h3>1 + 3N → 4 queries</h3><p>채팅방 30개 기준 약 92쿼리에서 고정 4쿼리로 개선.</p><div class="tag">PR #74</div></div>
+    <div class="card"><div class="label">CI</div><h3>로컬 테스트 → 자동 검증</h3><p>PR/push마다 Backend/Frontend 테스트 자동 실행.</p><div class="tag">PR #93</div></div>
+  </div>
+  <div class="placeholder" style="min-height:140px;margin-top:20px">추가 측정 자료 삽입 영역<br/><strong>AI 품질 · API 응답시간 · 동시성 테스트 결과</strong></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">12 · Demo</div><div class="title">핵심 가치 하나의 흐름으로만 보여줍니다</div>
+  <div class="grid2">
+    <div class="card"><div class="timeline" style="grid-template-columns:1fr;gap:10px"><div class="step"><b>1. 로그인</b><span>Cookie 기반 인증</span></div><div class="step"><b>2. AI 매칭</b><span>조건 입력 → 추천 결과</span></div><div class="step"><b>3. 상세 / 채팅</b><span>상대 사용자와 연결</span></div><div class="step"><b>4. 거래</b><span>요청 → 결제 → 상태 변화</span></div></div></div>
+    <div class="placeholder">실제 서비스 스크린샷 / GIF / 영상 삽입 영역<br/><strong>데모 실패 대비 캡처본 권장</strong></div>
+  </div>
+</section>
+
+<section class="slide center">
+  <div class="kicker">13 · Result & Retrospective</div>
+  <div class="title">기능을 많이 만드는 것보다, <span class="accent">문제를 제대로 나누고 책임을 배치하는 법</span>을 배웠습니다</div>
+  <div class="grid3" style="width:100%;margin-top:26px;flex:none">
+    <div class="card"><h3>AI</h3><p>LLM이 모든 판단을 하게 하지 않고 검색·검증·설명을 분리.</p></div>
+    <div class="card"><h3>Backend</h3><p>Transaction, Lock, DB Constraint가 각각 다른 문제를 해결한다는 점을 체감.</p></div>
+    <div class="card"><h3>Team</h3><p>ADR · PR · CI를 통해 변경 이유를 남기고 공유하는 과정의 중요성을 확인.</p></div>
+  </div>
+  <div class="qna" style="margin-top:34px">Q&A</div>
+</section>
+
+<div class="footer"><span class="note">← → / Space 이동 · F 전체화면 · Home/End</span><div class="progress"><div class="bar" id="bar"></div></div><div class="slideNum" id="num">1 / 13</div></div>
+</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')]; let i=0;
+function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('active',k===i));document.getElementById('num').textContent=`${i+1} / ${slides.length}`;document.getElementById('bar').style.width=`${((i+1)/slides.length)*100}%`;location.hash=`${i+1}`}
+function next(){show(i+1)} function prev(){show(i-1)}
+addEventListener('keydown',e=>{if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();next()} if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()} if(e.key==='Home')show(0); if(e.key==='End')show(slides.length-1); if(e.key.toLowerCase()==='f'){document.documentElement.requestFullscreen?.()}});
+addEventListener('hashchange',()=>{const n=parseInt(location.hash.slice(1));if(Number.isFinite(n))show(n-1)});
+const initial=parseInt(location.hash.slice(1));show(Number.isFinite(initial)?initial-1:0);
+</script>
+</body>
+</html>

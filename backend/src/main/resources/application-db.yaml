@@ -1,7 +1,7 @@
 # Database connection
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST}:5432/${DB_NAME}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT:5432}/${DB_NAME}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
@@ -16,3 +16,21 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+---
+# Production JPA options
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: lazy
