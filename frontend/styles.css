@@ -236,7 +236,8 @@ a.button {
 .route-view[data-route="chat"] {
   display: grid;
   height: calc(100vh - 146px);
-  min-height: 660px;
+  height: calc(100dvh - 146px);
+  min-height: 0;
   padding-bottom: 32px;
 }
 
@@ -1652,6 +1653,7 @@ dd {
 
 .chat-layout {
   grid-template-columns: 300px minmax(0, 1fr);
+  align-items: stretch;
   height: 100%;
   min-height: 0;
   border: 1px solid var(--line);
@@ -1662,8 +1664,8 @@ dd {
 }
 
 .conversation-list {
-  display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 12px;
   min-height: 0;
   overflow: hidden;
@@ -1671,13 +1673,30 @@ dd {
   border-right: 1px solid var(--line);
 }
 
+.conversation-list > :not([data-room-list]) {
+  flex: none;
+}
+
 .conversation-list [data-room-list] {
-  display: grid;
-  align-content: start;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
+  flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding-right: 2px;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  padding-right: 4px;
+}
+
+.conversation-list [data-room-list]::-webkit-scrollbar {
+  width: 10px;
+}
+
+.conversation-list [data-room-list]::-webkit-scrollbar-thumb {
+  background: #d8c7c0;
+  border-radius: 8px;
+  border: 2px solid var(--panel);
 }
 
 .conversation-list input {
@@ -1689,6 +1708,7 @@ dd {
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
   gap: 10px;
+  flex: 0 0 auto;
   border: 1px solid var(--line);
   padding: 12px;
   border-radius: var(--radius);
@@ -3510,7 +3530,6 @@ body.modal-open {
   }
 
   .conversation-list {
-    grid-template-rows: auto auto minmax(0, 1fr);
     max-height: 260px;
     border-right: 0;
     border-bottom: 1px solid var(--line);
