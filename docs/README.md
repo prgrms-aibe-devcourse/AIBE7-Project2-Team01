@@ -13,7 +13,7 @@
 | AI | [AI 기능 개발 가이드](./ai/AI-기능-개발-가이드.md), [Spring AI 환경설정 가이드](./ai/Spring-AI-환경설정-가이드.md), [A-B 임베딩 연동 계약](./ai/A-B-임베딩-연동-계약.md), [B 매칭 연동 계약](./ai/B-매칭-연동-계약.md) |
 | ADR | [ADR 목록](#adr) |
 | 트러블슈팅 | [트러블슈팅 목록](#트러블슈팅) |
-| 진행 기록 | [프로그램 수행일지 요약](./progress/프로그램-수행일지-요약.md), [프로그램 수행일지 상세](./progress/프로그램-수행일지-상세.md) |
+| 진행 기록 | [프로그램 수행일지 요약](./progress/프로그램-수행일지-요약.md), [프로그램 수행일지 상세](./progress/프로그램-수행일지-상세.md), [프로젝트 전체 WBS](./progress/WBS-프로젝트-전체.md) |
 
 ## 명세
 
@@ -55,6 +55,9 @@
 ## 트러블슈팅
 
 - [거래 정합성 및 임베딩 AFTER_COMMIT](./troubleshooting/거래-정합성-및-임베딩-AFTER-COMMIT.md)
+- [JWT 권한 설정 오류](./troubleshooting/JWT-권한-설정-오류.md)
+- [XSS 적용 후 제목 필드 누락](./troubleshooting/XSS-적용-후-제목-필드-누락.md)
+- [게시글 상세 조회 401 Unauthorized](./troubleshooting/게시글-상세-조회-401-Unauthorized.md)
 - [MVP 리뷰 기능 범위 조정](./troubleshooting/MVP-리뷰-기능-범위-조정.md)
 - [게시글 목록 N+1 및 페이지네이션](./troubleshooting/게시글-목록-N-PLUS-ONE-및-페이지네이션.md)
 - [채팅방 목록 N+1](./troubleshooting/chatroom-list-nplus1.md)
