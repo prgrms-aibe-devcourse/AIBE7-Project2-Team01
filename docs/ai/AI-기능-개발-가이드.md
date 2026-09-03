@@ -51,7 +51,7 @@ PORTFOLIO:{UUID}
 
 `EmbeddingTargetType`은 `TALENT`, `REQUEST`, `PORTFOLIO`만 사용한다. 동일 ID로 다시 저장해 수정 시 upsert하고, 삭제 시 같은 ID를 사용한다.
 
-현재 `application-ai.yaml`과 `docs/schema.sql`은 PgVectorStore ID 타입을 `TEXT`로 맞춘다.
+현재 `application-ai.yaml`과 `docs/database/schema.sql`은 PgVectorStore ID 타입을 `TEXT`로 맞춘다.
 
 ### Metadata
 

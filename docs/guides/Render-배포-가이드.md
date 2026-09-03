@@ -56,7 +56,7 @@ REQUEST:{UUID}
 PORTFOLIO:{UUID}
 ```
 
-기존 DB의 `vector_store.id`가 UUID라면 `docs/migrations/20260831_vector_store_id_to_text.sql`을 적용한다.
+기존 DB의 `vector_store.id`가 UUID라면 `docs/database/migrations/20260831_vector_store_id_to_text.sql`을 적용한다.
 
 ## 4. 배포 후 확인 순서
 

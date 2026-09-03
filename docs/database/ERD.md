@@ -244,6 +244,6 @@ erDiagram
 
 ## 6. 운영 DB 주의사항
 
-- 신규 DB는 `docs/schema.sql`을 기준으로 생성한다.
+- 신규 DB는 `docs/database/schema.sql`을 기준으로 생성한다.
 - 기존 DB에서 UUID 이전 또는 `vector_store.id` 타입 변경을 이미 적용했다면 같은 마이그레이션을 반복 적용하지 않는다.
 - `vector_store`는 검색 캐시 성격의 테이블이며 원본 게시글 데이터가 아니다. 모델, 차원 또는 Document text 규칙이 바뀌면 재임베딩이 필요하다.

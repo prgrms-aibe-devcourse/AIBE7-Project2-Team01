@@ -59,7 +59,7 @@ spring:
         id-type: TEXT
 ```
 
-이 설정은 현재 `application-ai.yaml`에 반영되어 있다. 기존 `vector_store.id`가 UUID인 DB라면 설정만 변경하지 말고 팀 DB 상태를 확인한 뒤 `docs/migrations/20260831_vector_store_id_to_text.sql`을 적용하거나 빈 테이블을 재생성한다.
+이 설정은 현재 `application-ai.yaml`에 반영되어 있다. 기존 `vector_store.id`가 UUID인 DB라면 설정만 변경하지 말고 팀 DB 상태를 확인한 뒤 `docs/database/migrations/20260831_vector_store_id_to_text.sql`을 적용하거나 빈 테이블을 재생성한다.
 
 ## 4. Metadata 계약
 

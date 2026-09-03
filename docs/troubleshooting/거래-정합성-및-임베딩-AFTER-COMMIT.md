@@ -141,7 +141,7 @@ Trade → RequestPost → Wallet
 - 거래 금액은 0보다 커야 함
 - 결제자와 수취자는 서로 달라야 함
 
-신규 DB용 스키마는 [`../schema.sql`](../schema.sql)에 반영했다. 기존 DB용 SQL은 [`../migrations/20260831_trade_integrity_constraints.sql`](../migrations/20260831_trade_integrity_constraints.sql)에 분리했다.
+신규 DB용 스키마는 [`../database/schema.sql`](../database/schema.sql)에 반영했다. 기존 DB용 SQL은 [`../database/migrations/20260831_trade_integrity_constraints.sql`](../database/migrations/20260831_trade_integrity_constraints.sql)에 분리했다.
 
 현재 프로젝트에는 Flyway가 없으므로 기존 DB의 PostgreSQL 부분 유니크 인덱스는 마이그레이션 SQL을 직접 실행해야 한다.
 

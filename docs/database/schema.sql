@@ -1,5 +1,5 @@
 -- Knotty DB schema
--- 기준: docs/erd.md
+-- 기준: docs/database/ERD.md
 -- 대상: PostgreSQL (Neon)
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
